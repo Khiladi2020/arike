@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 # Choices
 STATE_CHOICES = (
@@ -25,7 +26,7 @@ ROLE_CHOICES = (
     ("secondary_nurse", "secondary_nurse")
 )
 
-STANDARD_TEXT_LENGTH = 80
+TEXT_LENGTH = settings.DEFAULT_TEXT_LENGTH
 
 # Create your models here.
 
@@ -46,15 +47,17 @@ class LsgBody(models.Model):
 
 
 class Ward(models.Model):
-    name = models.CharField(max_length=STANDARD_TEXT_LENGTH)
+    name = models.CharField(max_length=TEXT_LENGTH)
     number = models.IntegerField()
     lsg_body = models.ForeignKey(LsgBody, on_delete=models.CASCADE)
 
 
 class Facility(models.Model):
     kind = models.CharField(choices=FACILITY_CHOICES)
-    name = models.CharField(max_length=STANDARD_TEXT_LENGTH)
+    name = models.CharField(max_length=TEXT_LENGTH)
     address = models.TextField()
     pincode = models.IntegerField()
     phone = models.IntegerField()
     ward = models.ForeignKey(Ward, on_delete=models.CASCADE)
+
+
