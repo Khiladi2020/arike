@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'app_admin.apps.AppAdminConfig',
+    'patient.apps.PatientConfig',
+    'nurse.apps.NurseConfig'
 ]
 
 MIDDLEWARE = [
@@ -121,3 +124,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# CUSTOM SETTINGS
+DEFAULT_TEXT_LENGTH = 80
+AUTH_USER_MODEL = 'app_admin.AppUser'

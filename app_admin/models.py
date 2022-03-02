@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.conf import settings
 
 # Choices
@@ -32,17 +33,17 @@ TEXT_LENGTH = settings.DEFAULT_TEXT_LENGTH
 
 
 class State(models.Model):
-    name = models.CharField(choices=STATE_CHOICES)
+    name = models.CharField(choices=STATE_CHOICES, max_length=TEXT_LENGTH)
 
 
 class District(models.Model):
-    name = models.CharField()
+    name = models.CharField(max_length=TEXT_LENGTH)
     state = models.ForeignKey(State, on_delete=models.CASCADE)
 
 
 class LsgBody(models.Model):
-    name = models.CharField()
-    kind = models.CharField()
+    name = models.CharField(max_length=TEXT_LENGTH)
+    kind = models.CharField(choices=LSG_CHOICES, max_length=TEXT_LENGTH)
     state = models.ForeignKey(District, on_delete=models.CASCADE)
 
 
@@ -53,11 +54,45 @@ class Ward(models.Model):
 
 
 class Facility(models.Model):
-    kind = models.CharField(choices=FACILITY_CHOICES)
+    kind = models.CharField(choices=FACILITY_CHOICES, max_length=TEXT_LENGTH)
     name = models.CharField(max_length=TEXT_LENGTH)
     address = models.TextField()
     pincode = models.IntegerField()
     phone = models.IntegerField()
     ward = models.ForeignKey(Ward, on_delete=models.CASCADE)
 
+# Custom User Manager
 
+
+class AppUserManager(BaseUserManager):
+    def create_user(self, email, password=None):
+        if not email:
+            raise ValueError('Users must have an email address')
+        user = self.model(email=self.normalize_email(email))
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, password=None):
+        user = self.create_user(email, password)
+        user.is_superuser = True
+        user.save(using=self._db)
+        return user
+
+# custom User Model
+
+
+class AppUser(AbstractBaseUser):
+    fullname = models.CharField(max_length=TEXT_LENGTH)
+    role = models.CharField(choices=ROLE_CHOICES, max_length=TEXT_LENGTH)
+    email = models.EmailField()
+    phone = models.IntegerField()
+    is_verified = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+    district = models.ForeignKey(District, on_delete=models.CASCADE)
+    facility = models.ForeignKey(Facility, on_delete=models.CASCADE)
+
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["email"]
+    EMAIL_FIELD = "email"
+    objects = AppUserManager()
