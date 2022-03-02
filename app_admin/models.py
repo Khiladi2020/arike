@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.conf import settings
 
 # Choices
@@ -76,23 +76,30 @@ class AppUserManager(BaseUserManager):
     def create_superuser(self, email, password=None):
         user = self.create_user(email, password)
         user.is_superuser = True
+        user.is_staff = True
         user.save(using=self._db)
         return user
 
 # custom User Model
 
 
-class AppUser(AbstractBaseUser):
-    fullname = models.CharField(max_length=TEXT_LENGTH)
-    role = models.CharField(choices=ROLE_CHOICES, max_length=TEXT_LENGTH)
-    email = models.EmailField()
-    phone = models.IntegerField()
+class AppUser(AbstractBaseUser, PermissionsMixin):
+    fullname = models.CharField(max_length=TEXT_LENGTH, blank=True)
+    role = models.CharField(choices=ROLE_CHOICES,
+                            max_length=TEXT_LENGTH, default=ROLE_CHOICES[0])
+    email = models.EmailField(unique=True)
+    phone = models.IntegerField(blank=True, null=True)
     is_verified = models.BooleanField(default=False)
+    district = models.ForeignKey(
+        District, on_delete=models.CASCADE, blank=True, null=True)
+    facility = models.ForeignKey(
+        Facility, on_delete=models.CASCADE, blank=True, null=True)
+    # additional fields
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
-    district = models.ForeignKey(District, on_delete=models.CASCADE)
-    facility = models.ForeignKey(Facility, on_delete=models.CASCADE)
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["email"]
+    REQUIRED_FIELDS = []
     EMAIL_FIELD = "email"
     objects = AppUserManager()
