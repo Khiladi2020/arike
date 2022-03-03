@@ -17,11 +17,11 @@ class Patient(models.Model):
     full_name = models.CharField(max_length=TEXT_LENGTH)
     date_of_birth = models.DateField()
     address = models.TextField()
-    landmark = models.CharField(max_length=TEXT_LENGTH)
+    landmark = models.CharField(max_length=TEXT_LENGTH, blank=True)
     phone = models.IntegerField()
     gender = models.CharField(choices=GENDER_CHOICES, max_length=TEXT_LENGTH)
     emergency_phone_number = models.IntegerField()
-    expired_time = models.DateTimeField()
+    expired_time = models.DateTimeField(null=True, blank=True)
     ward = models.CharField(max_length=TEXT_LENGTH)
     facility = models.ForeignKey(Facility, on_delete=models.CASCADE)
 
