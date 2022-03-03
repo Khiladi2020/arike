@@ -7,4 +7,4 @@ def home_page(request):
     # return HttpResponse("coolie gyzs")
     
 def index(request):
-    return HttpResponse("admin view")
+    return render(request,'base.html',{})
