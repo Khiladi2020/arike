@@ -3,4 +3,4 @@ from django.contrib.auth.admin import UserAdmin
 
 from .models import AppUser, AppUserManager
 # Register your models here.
-admin.register(AppUser, UserAdmin)
+admin.site.register(AppUser)
