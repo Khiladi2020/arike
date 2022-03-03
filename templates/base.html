@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arike</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <div class="main_app h-screen flex flex-row">
+        <!-- Sidebar -->
+        <div class="basis-1/4 flex flex-col p-3">
+            <!-- Brand -->
+            <div>
+                <h1 class="text-3xl font-bold ml-2">Arike</h1>
+            </div>
+            <!-- Navigation -->
+            <nav class="grow flex flex-col p-2 py-4">
+                <a class="hover:bg-black hover:text-white my-1 p-3 pl-4 rounded-xl" href="#">Home</a>
+                <a class="hover:bg-black hover:text-white my-1 p-3 pl-4 rounded-xl" href="#">Facility</a>
+                <a class="hover:bg-black hover:text-white my-1 p-3 pl-4 rounded-xl" href="#">Users</a>
+                <a class="hover:bg-black hover:text-white my-1 p-3 pl-4 rounded-xl" href="#">Patients</a>
+                <a class="hover:bg-black hover:text-white my-1 p-3 pl-4 rounded-xl" href="#">Schedule</a>
+                <a class="hover:bg-black hover:text-white my-1 p-3 pl-4 rounded-xl" href="#">Profile</a>
+            </nav>
+            <!-- User -->
+            <div class="border-t-2 border-black flex items-center py-2">
+                <img class="h-10 w-10 rounded-full"
+                    src="https://img.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg?t=st=1646297009~exp=1646297609~hmac=c27dc13388a3c6e94f089242b641cd9315c087c7e410346b2e151a41e6f7775d&w=740" />
+                <div class="ml-6">
+                    <p class="text-lg font-medium">Ravinder</p>
+                    <p class="text-sm">Logout</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <main class="grow bg-slate-200 p-2">
+            {% block content %} {% endblock %}
+        </main>
+    </div>
+</body>
+
+</html>
