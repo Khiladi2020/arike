@@ -3,18 +3,17 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.conf import settings
 
 # Choices
-STATE_CHOICES = (
-    ("Rajasthan", "Rajasthan"),
-    ("Haryana", "Haryana"),
-    ("Himachal Pradesh", "Himachal Pradesh"),
-    ("Karnataka", "karnataka"),
-    ("Maharastra", "Maharastra")
-)
 
 LSG_CHOICES = (
-    ('Gram Panchayat', 'Gram panchayat'),
-    ('Municipality', 'Municipality')
+    (1, "Grama Panchayath"),
+    (2, "Block Panchayath"),
+    (3, "District Panchayath"),
+    (4, "Nagar Panchayath"),
+    (10, "Municipality"),
+    (20, "Corporation"),
+    (50, "Others"),
 )
+
 
 FACILITY_CHOICES = (
     ('PHC', 'PHC'),
@@ -33,18 +32,25 @@ TEXT_LENGTH = settings.DEFAULT_TEXT_LENGTH
 
 
 class State(models.Model):
-    name = models.CharField(choices=STATE_CHOICES, max_length=TEXT_LENGTH)
+    name = models.CharField(max_length=TEXT_LENGTH)
+
+    def __str__(self):
+        return self.name
 
 
 class District(models.Model):
     name = models.CharField(max_length=TEXT_LENGTH)
     state = models.ForeignKey(State, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f"{self.name} -> {self.state}"
+
 
 class LsgBody(models.Model):
     name = models.CharField(max_length=TEXT_LENGTH)
     kind = models.CharField(choices=LSG_CHOICES, max_length=TEXT_LENGTH)
-    state = models.ForeignKey(District, on_delete=models.CASCADE)
+    lsg_body_code = models.CharField(max_length=TEXT_LENGTH)
+    district = models.ForeignKey(District, on_delete=models.CASCADE)
 
 
 class Ward(models.Model):

@@ -7,6 +7,10 @@ from nurse.models import Visit
 TEXT_LENGTH = settings.DEFAULT_TEXT_LENGTH
 
 # Create your models here.
+GENDER_CHOICES = (
+    ("Male", "Male"),
+    ("Female", "Female")
+)
 
 
 class Patient(models.Model):
@@ -15,7 +19,7 @@ class Patient(models.Model):
     address = models.TextField()
     landmark = models.CharField(max_length=TEXT_LENGTH)
     phone = models.IntegerField()
-    gender = models.CharField(max_length=TEXT_LENGTH)
+    gender = models.CharField(choices=GENDER_CHOICES, max_length=TEXT_LENGTH)
     emergency_phone_number = models.IntegerField()
     expired_time = models.DateTimeField()
     ward = models.CharField(max_length=TEXT_LENGTH)
