@@ -25,6 +25,9 @@ class Patient(models.Model):
     ward = models.CharField(max_length=TEXT_LENGTH)
     facility = models.ForeignKey(Facility, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f"{self.full_name} -> {self.phone}"
+
 
 class FamilDetail(models.Model):
     full_name = models.CharField(max_length=TEXT_LENGTH)
@@ -39,16 +42,25 @@ class FamilDetail(models.Model):
     is_primary = models.BooleanField(default=False)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f"{self.full_name} -> {self.phone}"
+
 
 class Disease(models.Model):
     name = models.CharField(max_length=TEXT_LENGTH)
     icds_code = models.CharField(max_length=TEXT_LENGTH)
+
+    def __str__(self):
+        return self.name
 
 
 class PatientDisease(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     disease = models.ForeignKey(Disease, on_delete=models.CASCADE)
     note = models.TextField()
+
+    def __str__(self):
+        return f"{self.patient} -> {self.disease}"
 
 
 class Treatment(models.Model):
@@ -57,9 +69,15 @@ class Treatment(models.Model):
     care_sub_type = models.CharField(max_length=TEXT_LENGTH)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.patient
+
 
 class TreatmentNotes(models.Model):
     note = models.TextField()
     description = models.TextField()
     visit = models.ForeignKey(Visit, on_delete=models.CASCADE)
     treatment = models.ForeignKey(Treatment, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.treatment

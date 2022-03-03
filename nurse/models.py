@@ -23,9 +23,15 @@ class Visit(models.Model):
     symptoms = models.CharField(max_length=TEXT_LENGTH)
     note = models.TextField()
 
+    def __str__(self):
+        return self.palliative_phase
+
 
 class VisitSchedule(models.Model):
     visit_time = models.DateTimeField()
     duration = models.IntegerField()
     patient = models.ForeignKey("patient.Patient", on_delete=models.CASCADE)
     nurse = models.ForeignKey(AppUser,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.patient} -> {self.nurse}"

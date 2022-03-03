@@ -48,15 +48,21 @@ class District(models.Model):
 
 class LsgBody(models.Model):
     name = models.CharField(max_length=TEXT_LENGTH)
-    kind = models.CharField(choices=LSG_CHOICES, max_length=TEXT_LENGTH)
+    kind = models.IntegerField(choices=LSG_CHOICES)
     lsg_body_code = models.CharField(max_length=TEXT_LENGTH)
     district = models.ForeignKey(District, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
 
 
 class Ward(models.Model):
     name = models.CharField(max_length=TEXT_LENGTH)
     number = models.IntegerField()
     lsg_body = models.ForeignKey(LsgBody, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
 
 
 class Facility(models.Model):
@@ -66,6 +72,9 @@ class Facility(models.Model):
     pincode = models.IntegerField()
     phone = models.IntegerField()
     ward = models.ForeignKey(Ward, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.name} -> {self.kind}"
 
 # Custom User Manager
 
