@@ -53,7 +53,7 @@ class LsgBody(models.Model):
     district = models.ForeignKey(District, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return f"{self.district} -> {self.name}"
 
 
 class Ward(models.Model):
@@ -101,7 +101,7 @@ class AppUserManager(BaseUserManager):
 class AppUser(AbstractBaseUser, PermissionsMixin):
     fullname = models.CharField(max_length=TEXT_LENGTH, blank=True)
     role = models.CharField(choices=ROLE_CHOICES,
-                            max_length=TEXT_LENGTH, default=ROLE_CHOICES[0])
+                            max_length=TEXT_LENGTH, default=ROLE_CHOICES[0][0])
     email = models.EmailField(unique=True)
     phone = models.IntegerField(blank=True, null=True)
     is_verified = models.BooleanField(default=False)
