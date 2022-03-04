@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <section>
+        <div class="flex justify-between">
+            <h2 class="text-4xl font-bold">Home</h2>
+        </div>
+        <!-- <h3 class="text-2xl font-bold my-5 mt-10">Profile</h2> -->
+        <div class="container flex flex-col gap-5 mt-10">
+            <div class="flex gap-5">
+                <div class="basis-1/2 p-6 bg-white rounded-xl flex items-center">
+                    <img class="h-7 w-7 mr-5" src="https://avatars.dicebear.com/api/identicon/20.svg">
+                    <div class="grow">
+                        <p class="font-medium text-2xl">Users</p>
+                        <p>You can perform CRUD</p>
+                    </div>
+                    <a href="{% url 'app_admin:user_list' %}" class="self-start">
+                        <img class="w-5 h-5" src="https://cdn-icons.flaticon.com/png/512/2985/premium/2985013.png?token=exp=1646423934~hmac=ca18802fe698947103cdba033cee1001">
+                    </a>
+                </div>
+                <div class="basis-1/2 p-6 bg-white rounded-xl flex items-center">
+                    <img class="h-7 w-7 mr-5" src="https://avatars.dicebear.com/api/identicon/40.svg">
+                    <div class="grow">
+                        <p class="font-medium text-2xl">Facilities</p>
+                        <p>You can perform CRUD</p>
+                    </div>
+                    <a href="{% url 'app_admin:facility_list' %}" class="self-start">
+                        <img class="w-5 h-5" src="https://cdn-icons.flaticon.com/png/512/2985/premium/2985013.png?token=exp=1646423934~hmac=ca18802fe698947103cdba033cee1001">
+                    </a>
+                </div>
+            </div>
+            <div class="flex gap-5">
+                <div class="basis-1/2 p-6 bg-white rounded-xl flex items-center">
+                    <img class="h-7 w-7 mr-5" src="https://avatars.dicebear.com/api/identicon/90.svg">
+                    <div class="grow">
+                        <p class="font-medium text-2xl">Patients</p>
+                        <p>You can perform CRUD</p>
+                    </div>
+                    <a href="{% url 'patient:patient_list' %}" class="self-start">
+                        <img class="w-5 h-5" src="https://cdn-icons.flaticon.com/png/512/2985/premium/2985013.png?token=exp=1646423934~hmac=ca18802fe698947103cdba033cee1001">
+                    </a>
+                </div>
+                <div class="basis-1/2 p-6 bg-white rounded-xl flex items-center">
+                    <img class="h-7 w-7 mr-5" src="https://avatars.dicebear.com/api/identicon/440.svg">
+                    <div class="grow">
+                        <p class="font-medium text-2xl">Profile</p>
+                        <p>Check and update your data</p>
+                    </div>
+                    <a href="{% url 'app_admin:user_list' %}" class="self-start">
+                        <img class="w-5 h-5" src="https://cdn-icons.flaticon.com/png/512/2985/premium/2985013.png?token=exp=1646423934~hmac=ca18802fe698947103cdba033cee1001">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

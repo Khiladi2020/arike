@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="flex justify-between items-center">
+        <h1 class="text-4xl font-bold">Users</h1>
+        <a href="{% url 'app_admin:user_form' %}">
+            <span class="inline-block rounded-md border-2 border-black cursor-pointer px-5 py-1 bg-black text-white">New</span>
+        </a>
+    </div>
+    <section class="mt-10">
+        <ul class="grid grid-cols-2 gap-6">
+            {% for appuser in appuser_list %}
+                <li>
+                    <div class="h-full p-3 bg-white rounded-xl">
+                        <!-- Content -->
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-xl font-medium">{{appuser.fullname}}</h3>
+                            <span class="inline-block bg-slate-300 px-3 rounded-full">{{appuser.role}}</span>
+                        </div>
+                        <p>{{appuser.email}}</p>
+                        <p class="font-medium">{{appuser.phone}}</p>
+                        <!-- Footer -->
+                        <div class="pt-2 flex items-center">
+                            <div class="grow"></div>
+                            <a class="inline-block rounded-md border-2 border-black cursor-pointer px-5 py-1"
+                                href="{% url 'app_admin:user_detail' appuser.id %}">View</a>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock %}

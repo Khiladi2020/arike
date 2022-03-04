@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <section>
+        <div class="flex justify-between">
+            <h2 class="text-4xl font-bold">{{appuser.fullname}}</h2>
+            <div>
+                <a href="{% url 'app_admin:user_delete' appuser.id %}">
+                    <span class="inline-block rounded-md border-2 border-black cursor-pointer px-5 py-1">Delete</span>
+                </a>
+                <a href="{% url 'app_admin:user_update' appuser.id %}">
+                    <span class="inline-block rounded-md border-2 border-black cursor-pointer px-5 py-1 bg-black text-white">Edit</span>
+                </a>
+            </div>
+        </div>
+        <h3 class="text-2xl font-bold my-5 mt-10">Profile</h2>
+        <div class="container flex flex-col gap-5">
+            <div class="flex gap-5">
+                <div class="basis-1/2 p-3 bg-white rounded-xl">
+                    <p class="font-medium">Name</p>
+                    <p>{{appuser.fullname}}</p>
+                </div>
+                <div class="basis-1/2 p-3 bg-white rounded-xl">
+                    <p class="font-medium">Address</p>
+                    <p>{{appuser.email}}</p>
+                </div>
+            </div>
+            <div class="flex gap-5">
+                <div class="basis-1/2 p-3 bg-white rounded-xl">
+                    <p class="font-medium">Phone</p>
+                    <p>{{appuser.phone}}</p>
+                </div>
+                <div class="basis-1/2 p-3 bg-white rounded-xl">
+                    <p class="font-medium">Birth Date</p>
+                    <p>12 March 2002</p>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="text-2xl font-bold my-5 mt-10">Facilities</h2>
+        <div class="flex gap-5">
+            <div class="basis-1/2 p-3 bg-white rounded-xl">
+                <p>{{appuser.facility.name}}</p>
+                <p>{{appuser.facility.address}}</p>
+            </div>
+            <div class="basis-1/2 p-3 "></div>
+        </div>
+        
+        <h3 class="text-2xl font-bold my-5 mt-10">Role</h2>
+        <div class="flex gap-5">
+            <div class="basis-1/2 p-3 bg-white rounded-xl">
+                {{appuser.role}}
+            </div>
+            <div class="basis-1/2 p-3 "></div>
+        </div>
+    </section>
+{% endblock %}
