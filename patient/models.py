@@ -1,8 +1,7 @@
 from django.db import models
 from django.conf import settings
 
-from app_admin.models import Facility
-from nurse.models import Visit
+from app_admin.models import Facility, AppUser
 
 TEXT_LENGTH = settings.DEFAULT_TEXT_LENGTH
 
@@ -61,6 +60,35 @@ class PatientDisease(models.Model):
 
     def __str__(self):
         return f"{self.patient} -> {self.disease}"
+
+
+class Visit(models.Model):
+    palliative_phase = models.CharField(max_length=TEXT_LENGTH)
+    blood_pressure = models.CharField(max_length=TEXT_LENGTH)
+    pulse = models.CharField(max_length=TEXT_LENGTH)
+    general_random_blood_sugar = models.CharField(
+        max_length=TEXT_LENGTH)
+    personal_hygiene = models.CharField(max_length=TEXT_LENGTH)
+    mouth_hygiene = models.CharField(max_length=TEXT_LENGTH)
+    pubic_hygiene = models.CharField(max_length=TEXT_LENGTH)
+    systemic_examination = models.CharField(max_length=TEXT_LENGTH)
+    patient_at_peace = models.BooleanField(default=False)
+    pain = models.BooleanField(default=False)
+    symptoms = models.CharField(max_length=TEXT_LENGTH)
+    note = models.TextField()
+
+    def __str__(self):
+        return self.palliative_phase
+
+
+class VisitSchedule(models.Model):
+    visit_time = models.DateTimeField()
+    duration = models.IntegerField()
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    nurse = models.ForeignKey(AppUser, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.patient} -> {self.nurse}"
 
 
 class Treatment(models.Model):
