@@ -23,3 +23,11 @@ class PatientCreateView(generic.CreateView):
     success_url = "/patient/"
     fields = ["full_name", "date_of_birth", "address",
               "landmark", "phone", "gender", "emergency_phone_number", "ward", "facility"]
+
+
+class PatientUpdateView(generic.UpdateView):
+    model = Patient
+    template_name = "patient/patient_update.html"
+    success_url = "/patient/"
+    fields = ["full_name", "date_of_birth", "address",
+              "landmark", "phone", "gender", "emergency_phone_number", "ward", "facility"]
