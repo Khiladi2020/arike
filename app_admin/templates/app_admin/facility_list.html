@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<ul class="grid grid-cols-2 gap-10">
+    {% for facility in facility_list %}
+        <li>
+            <div class="h-full p-3 bg-white rounded-xl">
+                <!-- Content -->
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="text-xl font-medium">{{facility.name}}</h3>
+                    <span class="inline-block bg-slate-300 px-3 rounded-full">{{facility.kind}}</span>
+                </div>
+                <p>{{facility.address}}</p>
+                <p class="font-medium">{{facility.ward}}</p>
+                <!-- Footer -->
+                <div class="mt-4 pt-2 border-t-2 border-slate-400 flex items-center">
+                    <div class="grow">
+                        <p>{{facility.phone}}</p>
+                    </div>
+                    <a class="inline-block rounded-md border-2 border-black cursor-pointer px-5 py-1"
+                        href="{% url 'app_admin:facility_detail' facility.id %}">View</a>
+                </div>
+            </div>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

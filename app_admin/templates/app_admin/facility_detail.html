@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <section>
+        <div class="flex justify-between">
+            <h2 class="text-4xl font-bold">{{facility.name}}</h2>
+            <div>
+                <span class="inline-block rounded-md border-2 border-black cursor-pointer px-5 py-1">Delete</span>
+                <span class="inline-block rounded-md border-2 border-black cursor-pointer px-5 py-1 bg-black text-white">Edit</span>
+            </div>
+        </div>
+        <h3 class="text-2xl font-bold my-5 mt-10">{{facility.kind}}</h2>
+        <div class="container flex flex-col gap-5">
+            <div class="grow p-3 bg-white rounded-xl">
+                <p class="font-medium">Name</p>
+                <p>{{facility.name}}</p>
+            </div>
+            <div class="grow p-3 bg-white rounded-xl">
+                <p class="font-medium">Address</p>
+                <p>{{facility.address}}</p>
+            </div>
+            <div class="grow p-3 bg-white rounded-xl">
+                <p class="font-medium">Ward</p>
+                <p>{{facility.ward}}</p>
+            </div>
+            <div class="flex gap-5">
+                <div class="grow p-3 bg-white rounded-xl">
+                    <p class="font-medium">Pin code</p>
+                    <p>{{facility.pincode}}</p>
+                </div>
+                <div class="grow p-3 bg-white rounded-xl">
+                    <p class="font-medium">Phone number</p>
+                    <p>{{facility.phone}}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

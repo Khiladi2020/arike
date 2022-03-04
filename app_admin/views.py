@@ -1,5 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.views import generic
+
+from .models import Facility
 
 # Create your views here.
 def home_page(request):
@@ -8,3 +11,9 @@ def home_page(request):
     
 def index(request):
     return render(request,'base.html',{})
+
+class FacilityListView(generic.ListView):
+    model = Facility
+
+class FacilityDetailView(generic.DetailView):
+    model = Facility

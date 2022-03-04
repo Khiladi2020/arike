@@ -1,6 +1,7 @@
 <!-- Define URLS -->
 {% url 'patient:patient_list' as patient_url %}
 {% url 'app_admin:index' as home_url %}
+{% url 'app_admin:facility_list' as facility_url %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +26,7 @@
             <!-- Navigation -->
             <nav class="grow flex flex-col p-2 py-4">
                 <a class="hover:bg-black hover:text-white my-1 p-3 pl-4 rounded-xl {% if request.path == home_url %} text-white bg-black {% endif %}" href="{{home_url}}">Home</a>
-                <a class="hover:bg-black hover:text-white my-1 p-3 pl-4 rounded-xl" href="#">Facility</a>
+                <a class="hover:bg-black hover:text-white my-1 p-3 pl-4 rounded-xl {% if request.path == facility_url %} text-white bg-black {% endif %}" href="{{facility_url}}">Facility</a>
                 <a class="hover:bg-black hover:text-white my-1 p-3 pl-4 rounded-xl" href="#">Users</a>
                 <a class="hover:bg-black hover:text-white my-1 p-3 pl-4 rounded-xl {% if request.path == patient_url %} text-white bg-black {% endif %}" href="{{patient_url}}">Patients</a>
                 <a class="hover:bg-black hover:text-white my-1 p-3 pl-4 rounded-xl" href="#">Schedule</a>
