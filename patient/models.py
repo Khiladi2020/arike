@@ -61,6 +61,14 @@ class PatientDisease(models.Model):
     def __str__(self):
         return f"{self.patient} -> {self.disease}"
 
+class VisitSchedule(models.Model):
+    visit_time = models.DateTimeField()
+    duration = models.IntegerField()
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    nurse = models.ForeignKey(AppUser, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.patient} -> {self.nurse}"
 
 class Visit(models.Model):
     palliative_phase = models.CharField(max_length=TEXT_LENGTH)
@@ -76,19 +84,12 @@ class Visit(models.Model):
     pain = models.BooleanField(default=False)
     symptoms = models.CharField(max_length=TEXT_LENGTH)
     note = models.TextField()
+    visit_schedule = models.ForeignKey(VisitSchedule, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.palliative_phase
 
 
-class VisitSchedule(models.Model):
-    visit_time = models.DateTimeField()
-    duration = models.IntegerField()
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    nurse = models.ForeignKey(AppUser, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"{self.patient} -> {self.nurse}"
 
 
 class Treatment(models.Model):
