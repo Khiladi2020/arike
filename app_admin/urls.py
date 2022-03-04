@@ -8,4 +8,5 @@ urlpatterns = [
     path('facility/',views.FacilityListView.as_view(), name="facility_list"),
     path('facility/<int:pk>',views.FacilityDetailView.as_view(), name="facility_detail"),
     path('facility/create/',views.FacilityCreateView.as_view(), name="facility_form"),
+    path('facility/update/<int:pk>',views.FacilityUpdateView.as_view(), name="facility_update"),
 ]
