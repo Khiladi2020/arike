@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app_admin.apps.AppAdminConfig',
     'patient.apps.PatientConfig',
-    'nurse.apps.NurseConfig'
 ]
 
 MIDDLEWARE = [

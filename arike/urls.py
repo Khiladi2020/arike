@@ -21,6 +21,5 @@ urlpatterns = [
     path('arike/admin-panel/', admin.site.urls),
     path('admin/',include('app_admin.urls')),
     path('patient/',include('patient.urls')),
-    path('nurse/',include('nurse.urls')),
     path('',home_page)
 ]
