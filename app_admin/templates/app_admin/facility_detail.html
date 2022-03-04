@@ -5,7 +5,9 @@
         <div class="flex justify-between">
             <h2 class="text-4xl font-bold">{{facility.name}}</h2>
             <div>
-                <span class="inline-block rounded-md border-2 border-black cursor-pointer px-5 py-1">Delete</span>
+                <a href="{% url 'app_admin:facility_delete' facility.id %}">
+                    <span class="inline-block rounded-md border-2 border-black cursor-pointer px-5 py-1">Delete</span>
+                </a>
                 <a href="{% url 'app_admin:facility_update' facility.id %}">
                     <span class="inline-block rounded-md border-2 border-black cursor-pointer px-5 py-1 bg-black text-white">Edit</span>
                 </a>

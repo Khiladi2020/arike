@@ -35,3 +35,7 @@ class FacilityUpdateView(generic.UpdateView):
     template_name = "app_admin/facility_update.html"
     success_url = "/admin/facility/"
     fields = ['kind', 'name', 'address', 'pincode', 'phone', 'ward']
+
+class FacilityDeleteView(generic.DeleteView):
+    model = Facility
+    success_url = "/admin/facility/"

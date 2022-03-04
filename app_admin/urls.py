@@ -9,4 +9,5 @@ urlpatterns = [
     path('facility/<int:pk>',views.FacilityDetailView.as_view(), name="facility_detail"),
     path('facility/create/',views.FacilityCreateView.as_view(), name="facility_form"),
     path('facility/update/<int:pk>',views.FacilityUpdateView.as_view(), name="facility_update"),
+    path('facility/delete/<int:pk>',views.FacilityDeleteView.as_view(), name="facility_delete"),
 ]

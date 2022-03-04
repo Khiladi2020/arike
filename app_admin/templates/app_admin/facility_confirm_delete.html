@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="flex justify-between items-center">
+        <h1 class="text-4xl font-bold">Delete {{object.name}}</h1>
+    </div>
+    <section class="mt-10">
+        <form method="post">
+            {% csrf_token %}
+            <p>Facility {{object.name}} will be deleted</p>
+            <p>Are you sure ? Action can not be reversed.</p>
+            {{ form }}
+            <a href="{% url 'app_admin:facility_list'%}">
+                <span class="inline-block rounded-md border-2 border-black cursor-pointer px-5 py-1">Cancel</span>
+            </a>
+            <input type="submit" value="Delete" class="bg-black mt-4 ml-2 py-2 px-7 text-white rounded-xl cursor-pointer">
+        </form>
+    </section>
+{% endblock %}
