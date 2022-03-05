@@ -15,11 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from app_admin.views import home_page
+from app_admin.views import home_page, AuthLoginView
 
 urlpatterns = [
     path('arike/admin-panel/', admin.site.urls),
     path('admin/',include('app_admin.urls')),
     path('patient/',include('patient.urls')),
-    path('',home_page)
+    path('',home_page),
+    path('login/',AuthLoginView.as_view()),
 ]

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arike | Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <main class="w-screen h-screen flex">
+        <section class="basis-1/2 bg-zinc-800 text-white flex justify-center items-center">
+           <div>
+               <h1 class="text-8xl font-bold">Arike</h1>
+               <p>Super simple health management<br> system</p>
+           </div>
+        </section>
+        <section class="basis-1/2 flex items-center">
+            <div class="mx-auto" style="width:90%; max-width: 400px;">
+                <h2 class="text-4xl">Authorised Login</h2>
+                <form class="flex flex-col gap-3 mt-5" method="post">
+                    {% csrf_token %}
+                    {{object}}
+                    <input type="email" name="email" placeholder="Email" class=" bg-slate-200 rounded-md p-2">
+                    <input type="password" name="password" placeholder="Password" class="bg-slate-200 rounded-md p-2">
+                    <button class="bg-black text-white rounded-md p-2 mt-3">Login</button>
+                </form>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

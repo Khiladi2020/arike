@@ -1,6 +1,12 @@
+from re import L, template
+import django
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import generic
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
+
+from app_admin.admin import UserChangeForm, UserCreationForm
 
 from .models import AppUser, Facility
 
@@ -12,12 +18,12 @@ def home_page(request):
     # return HttpResponse("coolie gyzs")
 
 
-def index(request):
-    return render(request, 'base.html', {})
+def login_page(request):
+    return render(request, 'login.html', {})
 
 
 # FACILITY
-class FacilityListView(generic.ListView):
+class FacilityListView(LoginRequiredMixin,generic.ListView):
     model = Facility
 
 
@@ -54,20 +60,22 @@ class UserDetailView(generic.DetailView):
 
 
 class UserCreateView(generic.CreateView):
-    model = AppUser
+    form_class = UserCreationForm
+    template_name = "app_admin/appuser_form.html"
     success_url = "/admin/user/"
-    fields = ['fullname', 'role', 'email', 'phone',
-              'district', 'facility', 'password']
 
 
 class UserUpdateView(generic.UpdateView):
     model = AppUser
+    form_class = UserChangeForm
     template_name = "app_admin/appuser_update.html"
     success_url = "/admin/user/"
-    fields = ['fullname', 'role', 'email', 'phone',
-              'district', 'facility', 'password']
 
 
 class UserDeleteView(generic.DeleteView):
     model = AppUser
     success_url = "/admin/user/"
+
+# Auth Views
+class AuthLoginView(LoginView):
+    template_name = "login.html"

@@ -127,3 +127,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CUSTOM SETTINGS
 DEFAULT_TEXT_LENGTH = 80
 AUTH_USER_MODEL = 'app_admin.AppUser'
+LOGIN_URL = '/login/'
