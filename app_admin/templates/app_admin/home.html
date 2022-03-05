@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
     <section>
@@ -15,7 +16,7 @@
                         <p>You can perform CRUD</p>
                     </div>
                     <a href="{% url 'app_admin:user_list' %}" class="self-start">
-                        <img class="w-5 h-5" src="https://cdn-icons.flaticon.com/png/512/2985/premium/2985013.png?token=exp=1646423934~hmac=ca18802fe698947103cdba033cee1001">
+                        <img class="w-5 h-5" src="{% static 'app_admin/link_img.png' %}">
                     </a>
                 </div>
                 <div class="basis-1/2 p-6 bg-white rounded-xl flex items-center">
@@ -25,7 +26,7 @@
                         <p>You can perform CRUD</p>
                     </div>
                     <a href="{% url 'app_admin:facility_list' %}" class="self-start">
-                        <img class="w-5 h-5" src="https://cdn-icons.flaticon.com/png/512/2985/premium/2985013.png?token=exp=1646423934~hmac=ca18802fe698947103cdba033cee1001">
+                        <img class="w-5 h-5" src="{% static 'app_admin/link_img.png' %}">
                     </a>
                 </div>
             </div>
@@ -37,7 +38,7 @@
                         <p>You can perform CRUD</p>
                     </div>
                     <a href="{% url 'patient:patient_list' %}" class="self-start">
-                        <img class="w-5 h-5" src="https://cdn-icons.flaticon.com/png/512/2985/premium/2985013.png?token=exp=1646423934~hmac=ca18802fe698947103cdba033cee1001">
+                        <img class="w-5 h-5" src="{% static 'app_admin/link_img.png' %}">
                     </a>
                 </div>
                 <div class="basis-1/2 p-6 bg-white rounded-xl flex items-center">
@@ -47,7 +48,7 @@
                         <p>Check and update your data</p>
                     </div>
                     <a href="{% url 'app_admin:user_list' %}" class="self-start">
-                        <img class="w-5 h-5" src="https://cdn-icons.flaticon.com/png/512/2985/premium/2985013.png?token=exp=1646423934~hmac=ca18802fe698947103cdba033cee1001">
+                        <img class="w-5 h-5" src="{% static 'app_admin/link_img.png' %}">
                     </a>
                 </div>
             </div>

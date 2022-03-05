@@ -4,7 +4,6 @@ from . import views
 
 app_name="app_admin"
 urlpatterns = [
-    path('', views.home_page, name="index"),
     path('facility/',views.FacilityListView.as_view(), name="facility_list"),
     path('facility/<int:pk>',views.FacilityDetailView.as_view(), name="facility_detail"),
     path('facility/create/',views.FacilityCreateView.as_view(), name="facility_form"),
@@ -15,4 +14,5 @@ urlpatterns = [
     path('user/create/',views.UserCreateView.as_view(), name="user_form"),
     path('user/update/<int:pk>',views.UserUpdateView.as_view(), name="user_update"),
     path('user/delete/<int:pk>',views.UserDeleteView.as_view(), name="user_delete"),
+    path('profile/',views.ProfilePageView.as_view(), name="profile_page"),
 ]
