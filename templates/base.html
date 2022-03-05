@@ -1,8 +1,9 @@
 <!-- Define URLS -->
 {% url 'patient:patient_list' as patient_url %}
-{% url 'app_admin:index' as home_url %}
+{% url 'home_page' as home_url %}
 {% url 'app_admin:facility_list' as facility_url %}
 {% url 'app_admin:user_list' as user_url %}
+{% url 'app_admin:profile_page' as profile_url %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,20 +28,30 @@
             <!-- Navigation -->
             <nav class="grow flex flex-col p-2 py-4">
                 <a class="hover:bg-black hover:text-white my-1 p-3 pl-4 rounded-xl {% if request.path == home_url %} text-white bg-black {% endif %}" href="{{home_url}}">Home</a>
-                <a class="hover:bg-black hover:text-white my-1 p-3 pl-4 rounded-xl {% if request.path == facility_url %} text-white bg-black {% endif %}" href="{{facility_url}}">Facility</a>
-                <a class="hover:bg-black hover:text-white my-1 p-3 pl-4 rounded-xl {% if request.path == user_url %} text-white bg-black {% endif %}" href="{{user_url}}">Users</a>
+                {% if user.is_authenticated and user.role == "district_admin" %}
+                    <a class="hover:bg-black hover:text-white my-1 p-3 pl-4 rounded-xl {% if request.path == facility_url %} text-white bg-black {% endif %}" href="{{facility_url}}">Facility</a>
+                    <a class="hover:bg-black hover:text-white my-1 p-3 pl-4 rounded-xl {% if request.path == user_url %} text-white bg-black {% endif %}" href="{{user_url}}">Users</a>
+                {% endif %}
                 <a class="hover:bg-black hover:text-white my-1 p-3 pl-4 rounded-xl {% if request.path == patient_url %} text-white bg-black {% endif %}" href="{{patient_url}}">Patients</a>
                 <a class="hover:bg-black hover:text-white my-1 p-3 pl-4 rounded-xl" href="#">Schedule</a>
-                <a class="hover:bg-black hover:text-white my-1 p-3 pl-4 rounded-xl" href="#">Profile</a>
+                <a class="hover:bg-black hover:text-white my-1 p-3 pl-4 rounded-xl {% if request.path == profile_url %} text-white bg-black {% endif %}" href="{{profile_url}}">Profile</a>
             </nav>
             <!-- User -->
             <div class="border-t-2 border-black flex items-center py-2">
+                {% if user.is_authenticated %}
                 <img class="h-10 w-10 rounded-full"
                     src="https://img.freepik.com/free-vector/mysterious-mafia-man-smoking-cigarette_52683-34828.jpg?t=st=1646297009~exp=1646297609~hmac=c27dc13388a3c6e94f089242b641cd9315c087c7e410346b2e151a41e6f7775d&w=740" />
                 <div class="ml-6">
-                    <p class="text-lg font-medium">Ravinder</p>
-                    <p class="text-sm">Logout</p>
+                    <p class="text-lg font-medium">{{user.fullname}}</p>
+                    <p class="text-sm">
+                        <a href="{% url 'auth_logout' %}" class="text-blue-400">Logout</a>
+                    </p>
                 </div>
+                {% else %}
+                <div class="grow text-center">
+                    <a href="{% url 'auth_login' %}" class="text-blue-400">Login</a>
+                </div>
+                {% endif %}
             </div>
         </div>
 

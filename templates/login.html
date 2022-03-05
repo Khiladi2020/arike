@@ -20,9 +20,9 @@
                 <h2 class="text-4xl">Authorised Login</h2>
                 <form class="flex flex-col gap-3 mt-5" method="post">
                     {% csrf_token %}
-                    {{object}}
-                    <input type="email" name="email" placeholder="Email" class=" bg-slate-200 rounded-md p-2">
-                    <input type="password" name="password" placeholder="Password" class="bg-slate-200 rounded-md p-2">
+                    {% for field in form.visible_fields %}
+                        <input type="{{field.field.widget.input_type}}" name="{{field.html_name}}" placeholder="{{field.html_name}}" class=" bg-slate-200 rounded-md p-2">
+                    {% endfor %}
                     <button class="bg-black text-white rounded-md p-2 mt-3">Login</button>
                 </form>
             </div>
