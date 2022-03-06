@@ -88,7 +88,7 @@ class PatientDiseaseForm(ModelForm):
         exclude = ['patient']
 
 
-class PatientDiseaseListView(generic.ListView):
+class PatientDiseaseListView(LoginRequiredMixin, generic.ListView):
     model = PatientDisease
 
     def get_queryset(self):
@@ -103,7 +103,7 @@ class PatientDiseaseListView(generic.ListView):
         return context
 
 
-class PatientDiseaseCreateView(generic.CreateView):
+class PatientDiseaseCreateView(LoginRequiredMixin, generic.CreateView):
     model = PatientDisease
     form_class = PatientDiseaseForm
 
@@ -117,7 +117,7 @@ class PatientDiseaseCreateView(generic.CreateView):
         return reverse_lazy("patient:patientdisease_list", args=[patient_id])
 
 
-class PatientDiseaseUpdateView(generic.UpdateView):
+class PatientDiseaseUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = PatientDisease
     form_class = PatientDiseaseForm
     template_name = "patient/patientdisease_update.html"
@@ -138,18 +138,18 @@ class VisitScheduleForm(ModelForm):
         }
 
 
-class VisitScheduleListView(generic.ListView):
+class VisitScheduleListView(LoginRequiredMixin, generic.ListView):
     model = VisitSchedule
     template_name = "patient/schedule_list.html"
 
 
-class VisitScheduleCreateView(generic.CreateView):
+class VisitScheduleCreateView(LoginRequiredMixin, generic.CreateView):
     form_class = VisitScheduleForm
     template_name = "patient/schedule_form.html"
     success_url = reverse_lazy('patient:schedule_list')
 
 
-class VisitScheduleDetailView(generic.TemplateView):
+class VisitScheduleDetailView(LoginRequiredMixin, generic.TemplateView):
     template_name = "patient/schedule_detail.html"
 
     def get_context_data(self, **kwargs):
@@ -166,7 +166,7 @@ class VisitForm(ModelForm):
         exclude = ["visit_schedule"]
 
 
-class VisitCreateView(generic.CreateView):
+class VisitCreateView(LoginRequiredMixin, generic.CreateView):
     form_class = VisitForm
     template_name = "patient/visit_form.html"
     success_url = reverse_lazy("patient:schedule_list")
@@ -187,7 +187,7 @@ def handle_visit_save(sender, instance, **kwargs):
 # Patient Visit Views
 
 
-class PatientVisitListView(generic.ListView):
+class PatientVisitListView(LoginRequiredMixin, generic.ListView):
     model = VisitSchedule
     context_object_name = "patientvisit_list"
     template_name = "patient/patientvisit_list.html"
@@ -204,7 +204,7 @@ class PatientVisitListView(generic.ListView):
         return VisitSchedule.objects.filter(patient__pk=patient_id)
 
 
-class PatientVisitDetailView(generic.DetailView):
+class PatientVisitDetailView(LoginRequiredMixin, generic.DetailView):
     model = VisitSchedule
     fields = "__all__"
     template_name = "patient/patientvisit_detail.html"
