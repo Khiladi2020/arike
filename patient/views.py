@@ -178,6 +178,12 @@ class VisitCreateView(generic.CreateView):
         return super().form_valid(form)
 
 
+@receiver(pre_save, sender=Visit)
+def handle_visit_save(sender, instance, **kwargs):
+    '''Mark visitschedule as completed on visit object save'''
+    schedule_id = instance.visit_schedule.id
+    VisitSchedule.objects.filter(pk=schedule_id).update(visit_completed=True)
+
 # Patient Visit Views
 
 
