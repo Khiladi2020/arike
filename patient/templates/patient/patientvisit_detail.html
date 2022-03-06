@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="flex justify-between items-center">
+        <h1 class="text-4xl font-bold">Visit Details</h1>
+    </div>
+    <section class="mt-6">
+        <h2 class="text-2xl font-medium">{{patient.full_name}}</h2>
+        <p>{{patient.address}}</p>
+    </section>
+    <section class="mt-10">
+        <h2 class="text-2xl font-bold my-5">Health Information</h2>
+        <div class="h-full p-4 bg-white rounded-xl">
+            <div class="flex gap-2">
+                <div class="basis-1/2">
+                    <h3 class="font-medium">Palliative phase</h3>
+                    <p>{{visit.palliative_phase}}</p>
+                </div>
+                <div>
+                    <h3 class="font-medium">Blood pressure</h3>
+                    <p>{{visit.blood_pressure}}</p>
+                </div>
+            </div>
+            <h3 class="font-medium mt-3">Pulse</h3>
+            <p>{{visit.pulse}}</p>
+            <div class="flex gap-2 mt-3">
+                <div class="basis-1/2">
+                    <h3 class="font-medium">Personal hygiene</h3>
+                    <p>{{visit.personal_hygiene}}</p>
+                </div>
+                <div>
+                    <h3 class="font-medium">Mouth hygiene</h3>
+                    <p>{{visit.mouth_hygiene}}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="mt-5">
+        <p class="text-2xl font-bold">Notes</p>
+        <div class="h-full p-4 mt-3 bg-white rounded-xl">
+            <h3 class="font-medium text-xl">By: {{visitschedule.nurse.fullname}}</h3>
+            <p class="text-sm">{{visitschedule.visit_time}}</p>
+            <p class="mt-3">{{visit.note}}</p>
+        </div>
+    </section>
+{% endblock %}

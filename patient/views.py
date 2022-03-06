@@ -4,8 +4,10 @@ from django.shortcuts import render
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.dispatch import receiver
+from django.db.models.signals import pre_save
 
-from .models import Patient, FamilyDetail, PatientDisease
+from .models import Patient, FamilyDetail, PatientDisease, VisitSchedule, Visit
 
 # Create your views here.
 
@@ -114,6 +116,7 @@ class PatientDiseaseCreateView(generic.CreateView):
         patient_id = self.kwargs["patient_id"]
         return reverse_lazy("patient:patientdisease_list", args=[patient_id])
 
+
 class PatientDiseaseUpdateView(generic.UpdateView):
     model = PatientDisease
     form_class = PatientDiseaseForm
@@ -122,3 +125,91 @@ class PatientDiseaseUpdateView(generic.UpdateView):
     def get_success_url(self):
         patient_id = self.kwargs["patient_id"]
         return reverse_lazy("patient:patientdisease_list", args=[patient_id])
+
+# Visit Schedule views
+
+
+class VisitScheduleForm(ModelForm):
+    class Meta:
+        model = VisitSchedule
+        fields = '__all__'
+        help_texts = {
+            'visit_time': "Format: yyyy-mm-dd hh:mm"
+        }
+
+
+class VisitScheduleListView(generic.ListView):
+    model = VisitSchedule
+    template_name = "patient/schedule_list.html"
+
+
+class VisitScheduleCreateView(generic.CreateView):
+    form_class = VisitScheduleForm
+    template_name = "patient/schedule_form.html"
+    success_url = reverse_lazy('patient:schedule_list')
+
+
+class VisitScheduleDetailView(generic.TemplateView):
+    template_name = "patient/schedule_detail.html"
+
+    def get_context_data(self, **kwargs):
+        schedule_id = self.kwargs["pk"]
+        context = super().get_context_data(**kwargs)
+        context["schedule_id"] = schedule_id
+        context["madara"] = "deklo power mera"
+        return context
+
+
+class VisitForm(ModelForm):
+    class Meta:
+        model = Visit
+        exclude = ["visit_schedule"]
+
+
+class VisitCreateView(generic.CreateView):
+    form_class = VisitForm
+    template_name = "patient/visit_form.html"
+    success_url = reverse_lazy("patient:schedule_list")
+
+    def form_valid(self, form):
+        schedule_id = self.kwargs["schedule_id"]
+        form.instance.visit_schedule = VisitSchedule.objects.get(
+            pk=schedule_id)
+        return super().form_valid(form)
+
+
+# Patient Visit Views
+
+
+class PatientVisitListView(generic.ListView):
+    model = VisitSchedule
+    context_object_name = "patientvisit_list"
+    template_name = "patient/patientvisit_list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        patient_id = self.kwargs["patient_id"]
+        context["patient"] = Patient.objects.get(pk=patient_id)
+        return context
+
+    def get_queryset(self):
+        patient_id = self.kwargs["patient_id"]
+        # return Patient.objects.get(pk=patient_id).visitschedule_set.all()
+        return VisitSchedule.objects.filter(patient__pk=patient_id)
+
+
+class PatientVisitDetailView(generic.DetailView):
+    model = VisitSchedule
+    fields = "__all__"
+    template_name = "patient/patientvisit_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        patient_id = self.kwargs["patient_id"]
+        visit_schedule_id = self.kwargs["pk"]
+        context["patient"] = Patient.objects.get(pk=patient_id)
+        context["visit"] = VisitSchedule.objects.get(
+            pk=visit_schedule_id).visit_set.first()
+        return context
+        # alternative
+        # context["visit"] = Visit.objects.get(visit_schedule__pk=visit_schedule_id)

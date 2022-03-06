@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="flex justify-between items-center">
+        <h1 class="text-4xl font-bold">Schedule</h1>
+        <a href="{% url 'patient:schedule_form' %}">
+            <span class="inline-block rounded-md border-2 border-black cursor-pointer px-5 py-1 bg-black text-white">New</span>
+        </a>
+    </div>
+    <section class="mt-10">
+        <ul class="grid grid-cols-2 md:grid-cols-3 gap-6">
+            {% for schedule in visitschedule_list %}
+                <li>
+                    <div class="h-full text-base p-3 bg-white rounded-xl">
+                        <h3 class="text-xl font-medium">{{schedule.patient.full_name}}</h3>
+                        <p>{{schedule.patient.address}}</p>
+                        <p><span class="font-medium">Time:</span> {{schedule.visit_time}}</p>
+                        <p><span class="font-medium">Duration:</span> {{schedule.duration}} minutes</p>
+                        <p><span class="font-medium">Visit Completed:</span> {{schedule.visit_completed}}</p>
+                        <!-- Footer -->
+                        <div class="mt-4 flex justify-end gap-2">
+                            {% if schedule.visit_completed %}
+                                <span class="text-green-400">Completed!</span>
+                            {% else %}
+                                <a href="#">
+                                    <span class="inline-block rounded-md border-2 border-black cursor-pointer px-5 py-1">Unschedule</span>
+                                </a>
+                                <a href="{% url 'patient:schedule_detail' schedule.id %}">
+                                    <span class="inline-block rounded-md border-2 border-black cursor-pointer px-5 py-1 bg-black text-white">Visit</span>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock %}
