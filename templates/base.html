@@ -4,6 +4,7 @@
 {% url 'app_admin:facility_list' as facility_url %}
 {% url 'app_admin:user_list' as user_url %}
 {% url 'app_admin:profile_page' as profile_url %}
+{% url 'patient:schedule_list' as schedule_url %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,8 +33,8 @@
                     <a class="hover:bg-black hover:text-white my-1 p-3 pl-4 rounded-xl {% if facility_url in request.path %} text-white bg-black {% endif %}" href="{{facility_url}}">Facility</a>
                     <a class="hover:bg-black hover:text-white my-1 p-3 pl-4 rounded-xl {% if user_url in request.path %} text-white bg-black {% endif %}" href="{{user_url}}">Users</a>
                 {% endif %}
-                <a class="hover:bg-black hover:text-white my-1 p-3 pl-4 rounded-xl {% if patient_url in request.path %} text-white bg-black {% endif %}" href="{{patient_url}}">Patients</a>
-                <a class="hover:bg-black hover:text-white my-1 p-3 pl-4 rounded-xl" href="#">Schedule</a>
+                <a class="hover:bg-black hover:text-white my-1 p-3 pl-4 rounded-xl {% if patient_url in request.path and schedule_url not in request.path %} text-white bg-black {% endif %}" href="{{patient_url}}">Patients</a>
+                <a class="hover:bg-black hover:text-white my-1 p-3 pl-4 rounded-xl {% if schedule_url in request.path %} text-white bg-black {% endif %}" href="{{schedule_url}}">Schedule</a>
                 <a class="hover:bg-black hover:text-white my-1 p-3 pl-4 rounded-xl {% if profile_url in request.path %} text-white bg-black {% endif %}" href="{{profile_url}}">Profile</a>
             </nav>
             <!-- User -->
