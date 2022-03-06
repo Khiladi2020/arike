@@ -28,7 +28,7 @@ class Patient(models.Model):
         return f"{self.full_name} -> {self.phone}"
 
 
-class FamilDetail(models.Model):
+class FamilyDetail(models.Model):
     full_name = models.CharField(max_length=TEXT_LENGTH)
     phone = models.IntegerField()
     date_of_birth = models.DateField()
