@@ -6,6 +6,8 @@
 {% url 'app_admin:profile_page' as profile_url %}
 {% url 'patient:schedule_list' as schedule_url %}
 
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,6 +62,12 @@
         <main class="grow bg-slate-200 p-6 overflow-y-auto">
             {% block content %} {% endblock %}
         </main>
+
+        <!-- Script to Style Form Fields -->
+        <script src="{% static 'app_admin/style_inputs.js' %}" ></script>
+        
+        <!-- Footer Content -->
+        {% block footer_content %} {% endblock %}
     </div>
 </body>
 
