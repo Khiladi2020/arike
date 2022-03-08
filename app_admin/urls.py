@@ -15,4 +15,5 @@ urlpatterns = [
     path('user/update/<int:pk>',views.UserUpdateView.as_view(), name="user_update"),
     path('user/delete/<int:pk>',views.UserDeleteView.as_view(), name="user_delete"),
     path('profile/',views.ProfilePageView.as_view(), name="profile_page"),
+    path('test/<int:iterations>',views.CeleryTest.as_view())
 ]

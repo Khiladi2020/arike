@@ -1,14 +1,22 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.views import generic
+from django.views import View, generic
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 
 from app_admin.admin import UserChangeForm, UserCreationForm
 
 from .models import AppUser, Facility
+from .tasks import heavyCalc
 
 # Create your views here.
+
+# Test Celery
+class CeleryTest(View):
+    def get(self,request,*args, **kwargs):
+        print(args,kwargs)
+        heavyCalc.delay(kwargs["iterations"])
+        return HttpResponse('Done started background job')
 
 # Home
 
