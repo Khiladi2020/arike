@@ -10,17 +10,22 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Load Environment variables
+load_dotenv()
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-r#c*^aq-4ikoro%mvrgn^&!tb_y0$gz=x09v@=p!^b+6kgz!8$'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -136,3 +141,7 @@ LOGOUT_REDIRECT_URL = '/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 # For compression support for static files
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# Celery Config
+CELERY_BROKER_URL = os.environ["CELERY_BROKER_URL"]
+# CELERY_RESULT_BACKEND = os.environ["CELERY_BROKER_URL"]
